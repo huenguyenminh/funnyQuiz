@@ -8,7 +8,12 @@ const CategoryScreen = ({navigation}) => {
     return (
         <SafeAreaView style={styles.screen}>
             <View style={styles.bodyScreen}>
-                <View style={styles.hero}>Category Screen</Text>
+                <View style={styles.hero}>
+                    <Text>
+                        Category Screen
+
+                    </Text>
+                </View>
             </View>
             
             <View style={styles.bottomNav}>
