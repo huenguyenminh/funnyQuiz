@@ -11,7 +11,6 @@ const CategoryScreen = ({navigation}) => {
                 <View style={styles.hero}>
                     <Text>
                         Category Screen
-
                     </Text>
                 </View>
             </View>

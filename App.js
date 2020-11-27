@@ -3,6 +3,8 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
+
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,6 +17,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import CategoryScreen from './screens/CategoryScreen';
 import PlayScreen from './screens/PlayScreen';
 import RankingScreen from './screens/RankingScreen';
+import BottomNav from './components/BottomNav';
 
 import { UserProvider } from './context/UserContext';
 
@@ -26,9 +29,11 @@ const App = () => {
       <NavigationContainer>
 
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        {/* <Stack.Screen name="play" component={BottomNav} /> */}
         <Stack.Screen name="welcome" component={WelcomeScreen} />
-        <Stack.Screen name="category" component={CategoryScreen} />
         <Stack.Screen name="play" component={PlayScreen} />
+        
+        <Stack.Screen name="category" component={CategoryScreen} />
         <Stack.Screen name="ranking" component={RankingScreen} />
       </Stack.Navigator>
 

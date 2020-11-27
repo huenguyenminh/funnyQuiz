@@ -1,5 +1,3 @@
-import 'react-native-gesture-handler';
-
 import React from 'react';
 import {
   StyleSheet,
@@ -15,18 +13,32 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import RankingScreen from '../screens/RankingScreen';
-const BottomStack = createBottomTabNavigator();
+import PlayScreen from '../screens/PlayScreen';
+const Tab = createBottomTabNavigator();
 
 const BottomNav = () => {
   return (
-    <View style={{backgroundColor: 'red'}}>
-        <Text>Bottom stack</Text>
-        <BottomStack.Navigator>
-          <BottomStack.Screen name="welcome" component={WelcomeScreen} />
-          <BottomStack.Screen name="ranking" component={RankingScreen} />
-          <BottomStack.Screen name="category" component={CategoryScreen} />
-        </BottomStack.Navigator>  
-    </View>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'play') {
+            iconName = focused
+              ? 'user'
+              : 'user-tie';
+          } else if (route.name === 'ranking') {
+            iconName = focused ? 'play' : 'ad';
+          }
+
+          // You can return any component that you like here!
+          return <FontAwesome5Icon name={iconName} size={size} color={color} />;
+        },
+      })}>
+      <Tab.Screen name="play"  component={PlayScreen} />
+      <Tab.Screen name="ranking" component={RankingScreen} />
+      <Tab.Screen name="category" component={CategoryScreen} />
+  </Tab.Navigator>  
   );
 };
 

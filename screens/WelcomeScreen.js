@@ -38,16 +38,23 @@ const WelcomeScreen = ({navigation}) => {
                         }}
                         onEndEditing={() => {
                             addUser(userCurent);
+                            
                         }}
                             
                     />
-                    <Button 
+                    
+                    
+                </View>
+                <View>
+                    <TouchableOpacity 
                         style={styles.btnForm}
                         onPress={() => {
                             addUser(userCurent);
-                        }}
-                        title="LƯU TÊN"/>
-                    
+                            navigation.navigate('play');
+                        }}>
+                        <Text style={styles.btn}>Bắt đầu</Text>
+                    </TouchableOpacity>
+                      
                 </View>
             </View>
             <View>
@@ -59,20 +66,6 @@ const WelcomeScreen = ({navigation}) => {
                     }}
                 />
             </View>
-            
-            <View style={styles.bottomNav}>
-                <TouchableOpacity style={styles.btn} onPress={ () => navigation.navigate('category')}>
-                    <Text style={styles.txtButton}>
-                        Exit
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btn} onPress={ () => navigation.navigate('category')}>
-                    <Text style={styles.txtButton}>
-                        Next
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            
         </SafeAreaView>
     )
 }
@@ -80,9 +73,20 @@ const WelcomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     btnForm:{
         fontSize: 12,
+        marginTop: 15,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 3,
+        backgroundColor: PusherConst.brand1,
+        width: 120,
+        height: 40,
+    },
+    btn: {
+        color: '#fff',
         textTransform: 'uppercase',
-        backgroundColor: PusherConst.brand2,
-        color: '#fff'
+        fontSize: 18,
     },
     formInput: {
         borderWidth: 1,
@@ -131,13 +135,6 @@ const styles = StyleSheet.create({
         color: PusherConst.white,
         fontSize: 16,
     },
-    btn:{
-        height: 40,
-        paddingHorizontal: 25,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 100
-    },
     txtButton: {
         color: PusherConst.white,
         fontWeight: 'bold',
@@ -161,8 +158,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    
-    
 });
 
 export default WelcomeScreen;

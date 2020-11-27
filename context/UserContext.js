@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { categories } from "./cate";
 // import { questions } from "./questions";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UserContext = React.createContext();
 
@@ -9,12 +10,24 @@ export const UserProvider = ({children}) => {
 
     const [users, setUser] = useState([]);
 
-    
+    useEffect(() => {
+        // async function getDataFromStore(){
+        //     const u = await AsyncStorage.getItem('user');
+            // setCurUser(u);
+        // }
+        (async () => {
+            const u = await AsyncStorage.getItem('user');
+            setUserCurent(u);
+        })();
+    }, []);
+
     const setCurUser = (userCur) => {
+        AsyncStorage.setItem('user', userCur);
         setUserCurent(userCur);
     };
 
     const addUser = (userAdd) => {
+        
         setUser([...users, {id:`${users.length + 1}`,name: userAdd}]);
     };
 
