@@ -9,6 +9,8 @@ import * as PusherConst from '../config';
 import UserContext from '../context/UserContext';
 import Question from '../components/question';
 
+import Loading from '../components/Loading';
+
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -29,7 +31,7 @@ function shuffle(array) {
 }
 
 const PlayScreen = ({navigation}) => {
-
+    const [isLoading, setIsLoading] = useState(true);
     const {userCurent} = useContext(UserContext);
     const [questions, setQuestion] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -38,14 +40,14 @@ const PlayScreen = ({navigation}) => {
 
     useEffect( () => {
         try{
-            
-          const fetchData = async () => {
+          const fetchData = async () => {currentScore
             // const url =  `http://localhost:3000/users`;
             const url = 'https://funny-quiz.herokuapp.com/users'
             const response = await fetch(url);
             const jsonData = await response.json();
             const copyData = await shuffle([...jsonData]);
             setQuestion(copyData.slice(0, PusherConst.numberQuestion));
+            setIsLoading(false);
           };
           console.info('hello 1')
           fetchData();
@@ -95,17 +97,26 @@ const PlayScreen = ({navigation}) => {
                 </TouchableOpacity>
                 {/* <BottomNav/> */}
             </View>
-            <View  style={styles.bodyScreen}>
-                <Slider
-                    style={styles.progress}
-                    minimumValue={0}
-                    maximumValue={PusherConst.numberQuestion}
-                    minimumTrackTintColor={PusherConst.brand2}
-                    maximumTrackTintColor={PusherConst.brand1}
-                    disabled = {true}
-                    value = {currentQuestion + 1}
-                />
+            <View style={[styles.bodyScreen]} >
+                <View style={[styles.fullLoading,{display: isLoading ? 'flex' : 'none'}]}>
+                    <Loading />
+                </View>
+                {/* SCORE */}
+                <View style={styles.score}>
+                    <Text>Score: {currentScore}/{PusherConst.numberQuestion}</Text>
+                    <Slider 
+                        style={[styles.progress,{display: isLoading ? 'none' : 'flex'}]}
+                        minimumValue={0}
+                        maximumValue={PusherConst.numberQuestion}
+                        minimumTrackTintColor={PusherConst.brand2}
+                        maximumTrackTintColor={PusherConst.brand1}
+                        disabled = {true}
+                        value = {currentScore}
+                    />
+                </View>
+                
                 <FlatList
+                    style={{display: isLoading ? 'none' : 'flex'}}
                     data={questions}
                     renderItem={renderItem}
                     keyExtractor={(question) => question.id}
@@ -117,6 +128,12 @@ const PlayScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
+    score: {},
+    fullLoading:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     progress: {
         width: '100%',
         height: 10,

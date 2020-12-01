@@ -21,7 +21,9 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
 
     // Check answer 
     function checkAnswer(answer){
-        for (var i = 0; i < question.aText.length; i++) {
+        alert(answer);
+        for (var i = 1; i <= question.aText.length; i++) {
+            console.info('question.aText.length: ',question.aText.length);
             if(answer === question.aText[i]){
                 console.info (i, ': true');
                 setCurrentScore( setCurrentScore + 1 );
@@ -40,7 +42,9 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
       }, []);
 
     return <View style={{display: id === currentQuestion ? 'flex' : 'none' }}>
+         {/* CAU HOI */}
         <View style={{display: !isAnswering ? 'flex' : 'none' }}>
+           
             <Text style={styles.question}>
                 Câu {id + 1}/{PusherConst.numberQuestion} :  
                 &nbsp;{question.qText}
@@ -51,6 +55,7 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
                     style={styles.Img}
                 />
             </View>
+            
             <Text style={styles.text}>
                 Câu trả lời:  {}
             </Text>
@@ -71,12 +76,16 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
                 />
             </View>
         </View>
-        
+        {/* CAU TRA LOI */}
         <View style={{display: isAnswering ? 'flex' : 'none' }}>
+            <View>
+                <Image style={styles.congrats}source={{uri: 'https://media0.giphy.com/media/xUOxf0akiVBK6R8jGU/giphy.gif'}}/>
+            </View>
             <Text style={styles.question}>
                 Đáp án câu {id + 1} :  
                 &nbsp;{question.aText[0]}
             </Text>
+            <Text>Cau tra loi cua ban: {answer}</Text>
             <View style={styles.wrapImg}>
                 <ImageBackground
                     source={{uri: question.aImg}} 
@@ -129,9 +138,7 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
                     }}
                 />
             </View>  
-            <View>
-                <Image style={styles.congrats}source={{uri: 'https://media0.giphy.com/media/xUOxf0akiVBK6R8jGU/giphy.gif'}}/>
-            </View>
+            
         </View>
                         
         
