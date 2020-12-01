@@ -27,10 +27,16 @@ export const UserProvider = ({children}) => {
     };
 
     const addUser = (userAdd) => {
-        
-        setUser([...users, {id:`${users.length + 1}`,name: userAdd}]);
+        console.info(users, 'hello')
+        const newUsers = [...users];
+        newUsers.push({
+            id:`${users.length + 1}`,
+            name: userAdd
+        })
+        setUser(newUsers);
     };
 
+    console.info(users,'usersusers')
     return (
         <UserContext.Provider value={{userCurent: userCurent, setCurUser, dataUser: users, addUser}}>
             {children}

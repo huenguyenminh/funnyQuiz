@@ -26,7 +26,8 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
             console.info('question.aText.length: ',question.aText.length);
             if(answer === question.aText[i]){
                 console.info (i, ': true');
-                setCurrentScore( setCurrentScore + 1 );
+                setCurrentScore( parseInt(currentScore) + 1 );
+                setIsCorrectAnswer(true);
                 return;
             }else{
                 console.info(i, ': inCorrect');
@@ -78,14 +79,20 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
         </View>
         {/* CAU TRA LOI */}
         <View style={{display: isAnswering ? 'flex' : 'none' }}>
-            <View>
+            <View style={{display: isCorrectAnswer ? 'flex' : 'none'}}>
+                <Text style={styles.title}>CHUC MUNG!</Text>
+                <Text style={styles.title}>BAN DA TRA LOI CHINH XAC</Text>
                 <Image style={styles.congrats}source={{uri: 'https://media0.giphy.com/media/xUOxf0akiVBK6R8jGU/giphy.gif'}}/>
+            </View>
+            <View style={{display: !isCorrectAnswer ? 'flex' : 'none', 'marginBottom': 20}}>
+                <Text style={styles.title}>RAT TIEC!</Text>
+                <Text style={styles.title}>BAN HAY THU SUC O CAU TIEP THEO NHE!</Text>
             </View>
             <Text style={styles.question}>
                 Đáp án câu {id + 1} :  
                 &nbsp;{question.aText[0]}
             </Text>
-            <Text>Cau tra loi cua ban: {answer}</Text>
+            {/* <Text>Cau tra loi cua ban: {answer}</Text> */}
             <View style={styles.wrapImg}>
                 <ImageBackground
                     source={{uri: question.aImg}} 
@@ -110,7 +117,7 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
                     }}>
                         <FontAwesome5 style={styles.txtButton} size={12} name='unlock-alt'/>
                         <Text style={styles.txtButtonForm}>
-                            {!isAnswering ? 'Xem Đáp Án' : 'Xem Lại Câu Hỏi'}
+                            {!isAnswering ? 'Tra loi' : 'Xem Lại Câu Hỏi'}
                         </Text>
                         
                 </TouchableOpacity>
@@ -152,9 +159,15 @@ const Question = ({question, id, currentQuestion, setCurrentQuestion, navigation
 };
 
 const styles = StyleSheet.create({
+    title: {
+        textTransform: 'uppercase',
+        textAlign: 'center'
+    },
     congrats: {
-        width: '90%',
-        height: 250
+        width: '50%',
+        height: 150,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     question: {
         marginBottom: 10,
